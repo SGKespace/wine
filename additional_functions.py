@@ -5,7 +5,6 @@ import pandas
 import openpyxl
 import collections
 from collections import defaultdict
-from pprint import pprint
 
 
 def get_exel_wine_to_dict(file_xlsx):
@@ -49,7 +48,7 @@ def get_the_form_of_the_word_year(desired_year):
 
 def main():
     years_since_inception = datetime.datetime.now().year - 1920
-    file_xlsx = 'wine3.xlsx'
+    file_xlsx = 'wine.xlsx'
     wines_dict = get_exel_wine_to_dict(file_xlsx)
     drink_groups = get_drink_groups(wines_dict)
     form_year = get_the_form_of_the_word_year(years_since_inception)
