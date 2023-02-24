@@ -7,19 +7,19 @@ import collections
 from collections import defaultdict
 
 
-def get_exel_wine_to_dict(file_xlsx):
+def get_exel_wine(file_xlsx):
     excel_data_df = pandas.read_excel(file_xlsx,  sheet_name='Лист1', keep_default_na=False)
     return excel_data_df.to_dict(orient='records')
 
 
-def get_drink_groups(wines_dict):
+def get_drink_groups(wines):
     beverages_group = defaultdict(list)
-    for beverage in wines_dict:
+    for beverage in wines:
         beverages_group[beverage["Категория"]].append(beverage)
     return beverages_group
 
 
-def change_index_html(years_since_inception, form_year, wines_dict):
+def change_index_html(years_since_inception, form_year, wines):
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -30,14 +30,14 @@ def change_index_html(years_since_inception, form_year, wines_dict):
     rendered_page = template.render(
         years_since_inception=years_since_inception,
         form_year=form_year,
-        wines=wines_dict
+        wines=wines
     )
 
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
 
 
-def get_the_form_of_the_word_year(desired_year):
+def get_form_word_year(desired_year):
     if desired_year % 10 == 1 and desired_year != 11 and desired_year % 100 != 11:
         return 'год'
     elif 1 < desired_year % 10 <= 4 and desired_year != 12 and desired_year != 13 and desired_year != 14:
@@ -47,11 +47,12 @@ def get_the_form_of_the_word_year(desired_year):
 
 
 def main():
-    years_since_inception = datetime.datetime.now().year - 1920
+    year_of_creation = 1920
+    years_since_inception = datetime.datetime.now().year - year_of_creation
     file_xlsx = 'wine.xlsx'
-    wines_dict = get_exel_wine_to_dict(file_xlsx)
-    drink_groups = get_drink_groups(wines_dict)
-    form_year = get_the_form_of_the_word_year(years_since_inception)
+    wines = get_exel_wine(file_xlsx)
+    drink_groups = get_drink_groups(wines)
+    form_year = get_form_word_year(years_since_inception)
     change_index_html(years_since_inception, form_year, drink_groups)
 
 

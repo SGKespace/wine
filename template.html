@@ -116,33 +116,32 @@
         <div class="row">
 
           {% for category, groups in wines | dictsort  %}
-
-          <div class="col-12 section-title text-center mb-5">
+            <div class="col-12 section-title text-center mb-5">
             <h2 class="d-block">{{ category }}</h2>
-          </div>
+            </div>
 
-          {% for group in groups %}
+          {% for product_map in groups %}
 
             <div class="col-lg-4 mb-5 col-md-6">
             <div class="wine_v_1 text-center pb-4 pt-5">
               <img src="images/{{group.Картинка}}" alt="Image" class="img-fluid">
-              {% if group.Акция %}
-              <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
+              {% if product_map.Акция %}
+                <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
               {% endif %}
               <div>
-                <h3 class="heading mt-3 mb-3 text-dark">{{group.Название}}</h3>
+                <h3 class="heading mt-3 mb-3 text-dark">{{product_map.Название}}</h3>
                 <p>
 
-                  {% if group.Сорт %}
-                  Сорт винограда - {{group.Сорт}}<br/>
+                  {% if product_map.Сорт %}
+                    Сорт винограда - {{product_map.Сорт}}<br/>
                   {% endif %}
 
 
-                  <span class="price">{{group.Цена}} р.</span>
+                  <span class="price">{{product_map.Цена}} р.</span>
                 </p>
               </div>
             </div>
-          </div>
+            </div>
 
           {% endfor %}
           {% endfor %}
