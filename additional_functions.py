@@ -17,31 +17,7 @@ def get_drink_groups(wines_dict):
     beverages_group = defaultdict(list)
     for beverage in wines_dict:
         beverages_group[beverage["Категория"]].append(beverage)
-    # pprint(beverages_group)
     return beverages_group
-
-
-def get_drink_groups_old(wines_dict):
-
-    count_category = collections.Counter()
-    for category in wines_dict:
-        count_category[category['Категория']] += 1
-    unique_category = list(count_category)
-
-    beverages = {}
-    for current_category in unique_category:
-        for category in wines_dict:
-            if category['Категория'] == current_category:
-                try:
-                    current = beverages[current_category]
-                    beverages[current_category] = f'{current}, {category}'
-                except KeyError:
-                    beverages[current_category] = f'{category}'
-
-        # beverages[current_category] = f'[{beverages[current_category].replace("nan","None")}]'
-        beverages[current_category] = [f'{beverages[current_category].replace("nan", "None")}']
-    pprint(beverages)
-    return beverages
 
 
 def change_index_html(years_since_inception, form_year, wines_dict):
