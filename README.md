@@ -17,7 +17,12 @@ openpyxl==3.1.1
 ``` 
 PIP install -r requirements.txt
 ```
-
+# Переменные окружения
+Пример файла .env
+```
+EXCEL_PATH='wine.xlsx'
+START_YEAR=120
+```
 Для того чтобы запустить скрипт, войдите в директорию со скриптом и запустите команду:
 ```
 python main.py
